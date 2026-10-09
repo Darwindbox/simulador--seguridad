@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; form-action 'none'; base-uri 'none'">
+<title>Material de clase</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#101d30;color:#eef3fa}*{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;place-items:center;padding:24px}main{width:min(100%,650px)}section[hidden]{display:none}.eyebrow{font-size:.9rem;color:#79d9d0;letter-spacing:.06em;font-weight:700}h1{font-size:clamp(2rem,7vw,3rem);line-height:1.12;margin:20px 0}h2{font-size:1.25rem;margin-top:28px}p,li{font-size:1.08rem;line-height:1.65;color:#cbd7e7}.lead{font-size:1.22rem}.details{padding:20px 0;border-top:1px solid #34435a;border-bottom:1px solid #34435a;margin:28px 0}button{font:inherit;font-weight:700;padding:17px 22px;min-height:52px;border:0;border-radius:10px;background:#79d9d0;color:#102438;cursor:pointer;width:100%;margin:8px 0}button.secondary{background:transparent;color:#e2ebf8;border:1px solid #71829a}button:focus-visible{outline:3px solid #f0ce85;outline-offset:4px}.icon{font-size:4rem;line-height:1}.warning{color:#ffb3aa}.danger-title{color:#ffd6d1}.danger-copy{font-size:1.32rem;color:#ffe6e1}.alertbox{border-left:4px solid #ff8477;padding:4px 0 4px 20px;margin:28px 0}.small{font-size:.88rem;color:#aebbd0}.safe{color:#79d9d0}.question{font-size:1.3rem;color:#f0ce85}ul{padding-left:24px}li{margin:12px 0}.footer{margin-top:34px;font-size:.88rem;color:#aebbd0}.timer{font-variant-numeric:tabular-nums}a{color:#79d9d0} @media(prefers-reduced-motion:no-preference){section{animation:appear .25s ease-out}@keyframes appear{from{opacity:.5;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}}
+</style>
+</head>
+<body>
+<main>
+<section id="material" aria-labelledby="title-material">
+<div class="eyebrow">AULA DIGITAL</div>
+<h1 id="title-material" tabindex="-1">Material de la clase</h1>
+<p class="lead">Cultura digital y seguridad informática</p>
+<div class="details"><strong>Presentación de la sesión</strong><p>Consulta el material para acompañar la explicación de tu profesor.</p></div>
+<button id="download" type="button">Descargar presentación</button>
+<p class="small">No necesitas iniciar sesión.</p>
+<p class="footer">Actividad de aula del Prof. Darwin Rojas</p>
+</section>
+<section id="alert" hidden aria-labelledby="title-alert">
+<div class="icon warning" aria-hidden="true">⚠</div>
+<h1 id="title-alert" class="danger-title" tabindex="-1">Alerta de seguridad</h1>
+<div class="alertbox"><p class="danger-copy">Tu teléfono está siendo monitoreado.</p><p class="danger-copy">Se ha detectado un virus. Tu información podría perderse.</p></div>
+<p>¿Qué harías al leer un mensaje como este?</p>
+<button id="explain" type="button">Ver explicación y terminar</button>
+<p class="small">Aviso ficticio de una actividad didáctica. Esta página no ha analizado tu teléfono.</p>
+<p class="small timer">La explicación aparecerá en <span id="seconds">7</span> segundos. Puedes cerrar esta pestaña en cualquier momento.</p>
+</section>
+<section id="lesson" hidden aria-labelledby="title-lesson">
+<div class="icon safe" aria-hidden="true">✓</div>
+<div class="eyebrow">SIMULACIÓN EDUCATIVA</div>
+<h1 id="title-lesson" tabindex="-1">Era una alerta ficticia</h1>
+<p class="lead">Esta actividad no instaló un virus ni monitoreó tu teléfono. No pidió datos, permisos ni descargó archivos.</p>
+<p>El mensaje fue parte de una demostración: una página puede escribir una amenaza y parecer convincente sin demostrar que sea cierta.</p>
+<h2>Señales del engaño</h2>
+<ul><li><strong>Cambio inesperado.</strong> Esperabas una presentación y apareció una amenaza.</li><li><strong>Miedo y urgencia.</strong> El mensaje intentó hacerte reaccionar sin verificar.</li><li><strong>Diagnóstico sin evidencia.</strong> Un texto en una página no demuestra que tu teléfono tenga un virus.</li></ul>
+<h2>Una respuesta segura</h2>
+<p>Cierra la página sospechosa. Evita instalar aplicaciones, conceder permisos o introducir contraseñas para resolver una alerta inesperada. Si tienes dudas, consulta a tu profesor o al área de TI por un canal conocido.</p>
+<p class="question">¿Confiabas en el enlace porque te lo compartió tu profesor? ¿Qué revisarías si llegara por otro medio?</p>
+<button id="finish" type="button">Terminar actividad</button>
+<button id="restart" class="secondary" type="button">Volver al inicio</button>
+</section>
+<section id="done" hidden aria-labelledby="title-done">
+<div class="eyebrow">ACTIVIDAD TERMINADA</div><h1 id="title-done" tabindex="-1">Puedes cerrar esta pestaña</h1>
+<p>Continúa con la explicación en clase.</p><p class="small">Esta página no registró tu asistencia ni descargó la presentación. No realizó un análisis de seguridad del dispositivo.</p>
+<button id="review" class="secondary" type="button">Revisar la explicación</button>
+</section>
+<noscript><p>Esta actividad necesita JavaScript para mostrar la simulación. Puedes cerrar la página. No contiene una descarga de la presentación.</p></noscript>
+</main>
+<script>
+'use strict';
+const views=['material','alert','lesson','done'];
+let countdown=null;
+function stopTimer(){if(countdown!==null){clearInterval(countdown);countdown=null;}}
+function showView(id){stopTimer();views.forEach(name=>{document.getElementById(name).hidden=name!==id;});const heading=document.querySelector('#'+id+' h1');heading.focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});}
+function showLesson(){showView('lesson');}
+document.getElementById('download').addEventListener('click',()=>{showView('alert');let remaining=7;document.getElementById('seconds').textContent=remaining;countdown=setInterval(()=>{remaining--;document.getElementById('seconds').textContent=remaining;if(remaining<=0)showLesson();},1000);});
+document.getElementById('explain').addEventListener('click',showLesson);
+document.getElementById('finish').addEventListener('click',()=>showView('done'));
+document.getElementById('restart').addEventListener('click',()=>showView('material'));
+document.getElementById('review').addEventListener('click',showLesson);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!document.getElementById('alert').hidden)showLesson();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&!document.getElementById('alert').hidden)showLesson();});
+</script>
+</body>
+</html>
